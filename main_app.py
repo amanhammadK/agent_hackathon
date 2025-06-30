@@ -40,18 +40,35 @@ class FinanceAdvisorApp:
             "conversation_history": []
         }
         
-        welcome_message = """
-        # 🚀 AI Finance Advisor
-        
-        Welcome to your personalized financial analysis platform! I can help you with:
-        
-        - 📊 **Stock Analysis** - Real-time market data and insights
-        - 📈 **Portfolio Management** - Optimization and diversification
-        - ⚠️ **Risk Assessment** - Comprehensive risk analysis
-        - 💡 **Investment Recommendations** - Data-driven suggestions
-        
-        Get started by selecting an option below or ask me anything about finance!
-        """
+        welcome_message = """# 🚀 AI Finance Advisor
+
+Welcome to your personalized financial analysis platform! I can help you with:
+
+## 💡 What I Can Do For You
+
+### 📊 **Stock Analysis**
+Get comprehensive analysis of individual stocks with professional recommendations, price targets, and technical indicators.
+
+### 📈 **Portfolio Management**
+Optimize your portfolio allocation, analyze diversification, and get personalized investment strategies.
+
+### ⚠️ **Risk Assessment**
+Comprehensive risk evaluation based on your financial situation, investment goals, and risk tolerance.
+
+### 🌍 **Market Overview**
+Stay updated with market trends, sector performance, and economic insights.
+
+## 🎯 Quick Start
+
+Click any button below to get started, or simply type your question in the chat!
+
+**Example questions:**
+- "Analyze Apple stock"
+- "Help me optimize my portfolio"
+- "What's my investment risk level?"
+- "Show me today's market overview"
+
+⚠️ *This is an educational demo - not actual financial advice*"""
         
         actions = [
             Action(name="analyze_stock", value="analyze_stock", label="📊 Analyze Stock", payload={"action": "stock"}),
@@ -424,7 +441,45 @@ async def main(message: cl.Message):
     await response_message.send()
 
 
-# Action handling will be implemented through message processing
+@cl.action_callback("analyze_stock")
+async def on_analyze_stock_action(action):
+    await app.handle_stock_analysis()
+
+@cl.action_callback("review_portfolio")
+async def on_review_portfolio_action(action):
+    await app.handle_portfolio_review()
+
+@cl.action_callback("risk_assessment")
+async def on_risk_assessment_action(action):
+    await app.handle_risk_assessment()
+
+@cl.action_callback("market_overview")
+async def on_market_overview_action(action):
+    await app.handle_market_overview()
+
+@cl.action_callback("export_analysis")
+async def on_export_action(action):
+    await app.handle_export(action.value)
+
+@cl.action_callback("add_to_watchlist")
+async def on_watchlist_action(action):
+    await app.handle_watchlist(action.value)
+
+@cl.action_callback("rebalance_portfolio")
+async def on_rebalance_action(action):
+    await cl.Message(content="🔄 Portfolio rebalancing feature coming soon!").send()
+
+@cl.action_callback("export_portfolio")
+async def on_export_portfolio_action(action):
+    await app.handle_export("portfolio")
+
+@cl.action_callback("risk_analysis")
+async def on_risk_analysis_action(action):
+    await app.handle_risk_assessment()
+
+@cl.action_callback("compare_stocks")
+async def on_compare_stocks_action(action):
+    await cl.Message(content="📊 Stock comparison feature coming soon!").send()
 
 
 @cl.on_chat_end
