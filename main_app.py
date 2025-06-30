@@ -70,14 +70,7 @@ Click any button below to get started, or simply type your question in the chat!
 
 ⚠️ *This is an educational demo - not actual financial advice*"""
         
-        actions = [
-            Action(name="analyze_stock", value="analyze_stock", label="📊 Analyze Stock", payload={"action": "stock"}),
-            Action(name="review_portfolio", value="review_portfolio", label="📈 Review Portfolio", payload={"action": "portfolio"}),
-            Action(name="risk_assessment", value="risk_assessment", label="⚠️ Risk Assessment", payload={"action": "risk"}),
-            Action(name="market_overview", value="market_overview", label="🌍 Market Overview", payload={"action": "market"})
-        ]
-        
-        await cl.Message(content=welcome_message, actions=actions).send()
+        await cl.Message(content=welcome_message).send()
         
     async def handle_stock_analysis(self):
         settings = await cl.ChatSettings([
@@ -441,45 +434,7 @@ async def main(message: cl.Message):
     await response_message.send()
 
 
-@cl.action_callback("analyze_stock")
-async def on_analyze_stock_action(action):
-    await app.handle_stock_analysis()
-
-@cl.action_callback("review_portfolio")
-async def on_review_portfolio_action(action):
-    await app.handle_portfolio_review()
-
-@cl.action_callback("risk_assessment")
-async def on_risk_assessment_action(action):
-    await app.handle_risk_assessment()
-
-@cl.action_callback("market_overview")
-async def on_market_overview_action(action):
-    await app.handle_market_overview()
-
-@cl.action_callback("export_analysis")
-async def on_export_action(action):
-    await app.handle_export(action.value)
-
-@cl.action_callback("add_to_watchlist")
-async def on_watchlist_action(action):
-    await app.handle_watchlist(action.value)
-
-@cl.action_callback("rebalance_portfolio")
-async def on_rebalance_action(action):
-    await cl.Message(content="🔄 Portfolio rebalancing feature coming soon!").send()
-
-@cl.action_callback("export_portfolio")
-async def on_export_portfolio_action(action):
-    await app.handle_export("portfolio")
-
-@cl.action_callback("risk_analysis")
-async def on_risk_analysis_action(action):
-    await app.handle_risk_assessment()
-
-@cl.action_callback("compare_stocks")
-async def on_compare_stocks_action(action):
-    await cl.Message(content="📊 Stock comparison feature coming soon!").send()
+# Action callbacks removed - users will interact through chat messages
 
 
 @cl.on_chat_end
