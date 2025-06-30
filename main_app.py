@@ -17,6 +17,7 @@ from agents.specialized_agents import (
     PortfolioAgent,
     RiskAgent
 )
+from agents.base_agent import FinanceAgentError
 
 
 class FinanceAdvisorApp:
@@ -53,10 +54,10 @@ class FinanceAdvisorApp:
         """
         
         actions = [
-            Action(name="analyze_stock", value="analyze_stock", label="📊 Analyze Stock"),
-            Action(name="review_portfolio", value="review_portfolio", label="📈 Review Portfolio"),
-            Action(name="risk_assessment", value="risk_assessment", label="⚠️ Risk Assessment"),
-            Action(name="market_overview", value="market_overview", label="🌍 Market Overview")
+            Action(name="analyze_stock", value="analyze_stock", label="📊 Analyze Stock", payload={"action": "stock"}),
+            Action(name="review_portfolio", value="review_portfolio", label="📈 Review Portfolio", payload={"action": "portfolio"}),
+            Action(name="risk_assessment", value="risk_assessment", label="⚠️ Risk Assessment", payload={"action": "risk"}),
+            Action(name="market_overview", value="market_overview", label="🌍 Market Overview", payload={"action": "market"})
         ]
         
         await cl.Message(content=welcome_message, actions=actions).send()
@@ -142,9 +143,9 @@ class FinanceAdvisorApp:
             """
 
             actions = [
-                Action(name="export_analysis", value=f"export_{symbol}", label="📥 Export Analysis"),
-                Action(name="add_to_watchlist", value=f"watch_{symbol}", label="👁️ Add to Watchlist"),
-                Action(name="compare_stocks", value=f"compare_{symbol}", label="🔍 Compare Stocks")
+                Action(name="export_analysis", value=f"export_{symbol}", label="📥 Export Analysis", payload={"action": "export", "symbol": symbol}),
+                Action(name="add_to_watchlist", value=f"watch_{symbol}", label="👁️ Add to Watchlist", payload={"action": "watchlist", "symbol": symbol}),
+                Action(name="compare_stocks", value=f"compare_{symbol}", label="🔍 Compare Stocks", payload={"action": "compare", "symbol": symbol})
             ]
 
             await cl.Message(content=analysis_content, actions=actions).send()
@@ -198,9 +199,9 @@ class FinanceAdvisorApp:
             """
 
             actions = [
-                Action(name="rebalance_portfolio", value="rebalance", label="⚖️ Rebalance"),
-                Action(name="export_portfolio", value="export_portfolio", label="📊 Export Report"),
-                Action(name="risk_analysis", value="risk_analysis", label="🛡️ Risk Analysis")
+                Action(name="rebalance_portfolio", value="rebalance", label="⚖️ Rebalance", payload={"action": "rebalance"}),
+                Action(name="export_portfolio", value="export_portfolio", label="📊 Export Report", payload={"action": "export", "type": "portfolio"}),
+                Action(name="risk_analysis", value="risk_analysis", label="🛡️ Risk Analysis", payload={"action": "risk_analysis"})
             ]
 
             await cl.Message(content=portfolio_content, actions=actions).send()

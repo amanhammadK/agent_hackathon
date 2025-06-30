@@ -32,6 +32,19 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 
+# Custom exceptions
+class FinanceAgentError(Exception):
+    """Base exception for finance agent errors"""
+    pass
+
+class ValidationError(FinanceAgentError):
+    """Raised when input validation fails"""
+    pass
+
+class APIError(FinanceAgentError):
+    """Raised when API calls fail"""
+    pass
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
